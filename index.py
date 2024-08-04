@@ -46,7 +46,7 @@ def gioca(scelta_giocatore):
             print('Pareggio')
     elif scelta_giocatore.lower() == 'carta' and scelta_computer == 'forbice':
         if modalita_invincibile:
-            print(f'Sarebbe vittoria del pc ma siccome hai scelto modalità invicibile carta batte forbice')
+            print(f'Sarebbe vittoria del pc ma siccome hai scelto modalità invicibile carta batte forbice (è in fibra di carbonio)')
             vittorie_pc = vittorie_pc + 1
         else:
             print('Hai perso')
