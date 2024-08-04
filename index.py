@@ -35,27 +35,61 @@ def scelta_pc():
     
 
 def gioca(scelta_giocatore):
-    global vittorie_pc, vittorie_giocatore 
+    global vittorie_pc, vittorie_giocatore, modalita_invincibile
     scelta_computer = scelta_pc()
     print(f'La scelta del computer è {scelta_computer}')
     if scelta_giocatore.lower() == scelta_computer:
-        print('Pareggio')
+        if modalita_invincibile:
+            print(f'Sarebbe pareggio ma hai scelto modalità invincibile, +1 per {nome_giocatore}')
+            vittorie_giocatore = vittorie_giocatore + 1
+        else:
+            print('Pareggio')
     elif scelta_giocatore.lower() == 'carta' and scelta_computer == 'forbice':
-        print('Hai perso')
-        vittorie_pc = vittorie_pc + 1
+        if modalita_invincibile:
+            print(f'Sarebbe vittoria del pc ma siccome hai scelto modalità invicibile carta batte forbice')
+            vittorie_pc = vittorie_pc + 1
+        else:
+            print('Hai perso')
+            vittorie_pc = vittorie_pc + 1
     elif scelta_giocatore.lower() == 'forbice' and scelta_computer == 'sasso':
-        print('Hai perso')
-        vittorie_pc = vittorie_pc + 1
+        if modalita_invincibile:
+            print(f'Forbice perderebbe contro il sasso, ma hai attivato la modalità invicibile quindi hai le forbici di adamantio')
+            vittorie_giocatore = vittorie_giocatore + 1
+        else:
+            print('Hai perso')
+            vittorie_pc = vittorie_pc + 1
     elif scelta_giocatore.lower() == 'sasso' and scelta_computer == 'carta':
-        print('Hai perso')
-        vittorie_pc = vittorie_pc + 1
+        if modalita_invincibile:
+            print(f'Di norma carta batte sasso, ma hai attivato la modalità invicibile quindi è sasso vs carta a 500 gradi')
+            vittorie_giocatore = vittorie_giocatore + 1
+        else:
+            print('Hai perso')
+            vittorie_pc = vittorie_pc + 1
     else:
-        print('Hai vinto')
-        vittorie_giocatore = vittorie_giocatore + 1
+        if modalita_invincibile:
+            print(f'Hai vinto senza imbrogliare!')
+            vittorie_giocatore = vittorie_giocatore + 1
+        else:
+            print('Hai vinto')
+            vittorie_giocatore = vittorie_giocatore + 1
 
 # ----------------------------- Inizio esecuzione 
 print('Benvenuto in carta forbici sasso')
 nome_giocatore = input('Digita il tuo nome: ')
+
+modalita_invincibile = input('Vuoi giocare in modalità invincibile? (si/no): ')
+
+while True:
+    if isinstance(modalita_invincibile, str):
+        if modalita_invincibile.lower() == 'si':
+            modalita_invincibile = True
+            break
+        elif modalita_invincibile.lower() == 'no':
+            modalita_invincibile = False
+            break
+    print('Scelta non valida')
+    print('Per favore digita si o no')
+    modalita_invincibile = input('Vuoi giocare in modalità invincibile? (si/no): ')
 
 while True:
     try:
